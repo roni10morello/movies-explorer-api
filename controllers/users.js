@@ -93,7 +93,11 @@ const updateUserInfo = (req, res, next) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Переданы некорректные данные'));
-      } else next(err);
+      } else if (err.code === 11000) {
+        next(new ConflictError('Пользователь уже существует!'));
+      } else {
+        next(err);
+      }
     });
 };
 

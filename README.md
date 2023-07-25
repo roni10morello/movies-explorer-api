@@ -1,7 +1,7 @@
 # movies-explorer-api
 
-## Ссылки на проект
+## Ссылка на backend
 
-IP-адрес 51.250.104.136
+IP-адрес 84.252.136.139
 
 Backend https://api.morello.nomoredomains.xyz

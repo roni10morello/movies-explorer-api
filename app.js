@@ -5,12 +5,12 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const cors = require('cors');
+const helmet = require('helmet');
 const errorHandler = require('./middlewares/errorHandler');
-const { createUser, login, logOut } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const { validateSignIn, validateSignUp } = require('./middlewares/validate');
 const routes = require('./routes/index');
-const auth = require('./middlewares/auth');
+const limiter = require('./middlewares/rateLimiter');
+const { MONGO_URL } = require('./utils/config');
 
 const app = express();
 
@@ -21,12 +21,7 @@ app.use(cors({
   credentials: true,
 }));
 
-// app.use(cors({
-//   origin: 'http://localhost:3000',
-//   credentials: true,
-// }));
-
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb')
+mongoose.connect(MONGO_URL)
   .then(() => {
     console.log('Connection successful');
   })
@@ -36,6 +31,8 @@ mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb')
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(helmet());
+app.use(limiter);
 app.use(cookieParser());
 app.use(requestLogger);
 
@@ -45,11 +42,7 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.post('/signin', validateSignIn, login);
-app.post('/signup', validateSignUp, createUser);
-app.delete('/signout', logOut);
-app.use('/', auth, routes);
-
+app.use(routes);
 app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
