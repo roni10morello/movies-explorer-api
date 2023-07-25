@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const isURL = require('validator/lib/isURL');
-const MESSAGE_URL_NOT_VALID = require('../utils/error');
+const { MESSAGE_URL_NOT_VALID } = require('../utils/error');
 
 const movieSchema = new mongoose.Schema({
   country: {

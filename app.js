@@ -11,7 +11,7 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const routes = require('./routes/index');
 const limiter = require('./middlewares/rateLimiter');
 const { MONGO_URL } = require('./utils/config');
-const MESSAGE_CRASH_TEST = require('./utils/error');
+const { MESSAGE_CRASH_TEST } = require('./utils/error');
 
 const app = express();
 
@@ -39,7 +39,7 @@ app.use(requestLogger);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
-    throw new Error({ MESSAGE_CRASH_TEST });
+    throw new Error(MESSAGE_CRASH_TEST);
   }, 0);
 });
 

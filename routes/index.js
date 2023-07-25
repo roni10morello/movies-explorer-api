@@ -5,7 +5,7 @@ const NotFoundError = require('../errors/not-found-error');
 const { validateSignIn, validateSignUp } = require('../middlewares/validate');
 const { createUser, login, logOut } = require('../controllers/users');
 const auth = require('../middlewares/auth');
-const MESSAGE_PAGE_NOT_FOUND = require('../utils/error');
+const { MESSAGE_PAGE_NOT_FOUND } = require('../utils/error');
 
 router.post('/signin', validateSignIn, login);
 router.post('/signup', validateSignUp, createUser);
