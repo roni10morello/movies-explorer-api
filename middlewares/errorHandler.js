@@ -1,8 +1,10 @@
+const { INTERNAL_SERVER_ERROR, MESSAGE_SERVER_ERROR } = require('../utils/error');
+
 const errorHandler = (err, req, res, next) => {
   if (err.statusCode) {
     res.status(err.statusCode).send({ message: err.message });
   } else {
-    res.status(500).send({ message: err.message || 'На сервере произошла ошибка' });
+    res.status(INTERNAL_SERVER_ERROR).send({ message: err.message || MESSAGE_SERVER_ERROR });
   }
   next();
 };

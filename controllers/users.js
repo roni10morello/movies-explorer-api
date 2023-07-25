@@ -10,6 +10,9 @@ const NotFoundError = require('../errors/not-found-error');
 const {
   OK,
   CREATED,
+  MESSAGE_INCORRECT_DATA,
+  MESSAGE_NOT_FOUND_USER,
+  MESSAGE_CONFLICT_ERR,
 } = require('../utils/error');
 
 const login = (req, res, next) => {
@@ -36,7 +39,7 @@ const getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        next(new NotFoundError('Запрашиваемый пользователь не найден'));
+        next(new NotFoundError(MESSAGE_NOT_FOUND_USER));
       }
       res.status(OK).send(user);
     })
@@ -64,9 +67,9 @@ const createUser = (req, res, next) => {
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные'));
+        next(new BadRequestError(MESSAGE_INCORRECT_DATA));
       } else if (err.code === 11000) {
-        next(new ConflictError('Пользователь уже существует!'));
+        next(new ConflictError(MESSAGE_CONFLICT_ERR));
       } else {
         next(err);
       }
@@ -87,14 +90,14 @@ const updateUserInfo = (req, res, next) => {
       if (user) {
         res.status(OK).send(user);
       } else {
-        next(new NotFoundError('Запрашиваемый пользователь не найден'));
+        next(new NotFoundError(MESSAGE_NOT_FOUND_USER));
       }
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        next(new BadRequestError('Переданы некорректные данные'));
+        next(new BadRequestError(MESSAGE_INCORRECT_DATA));
       } else if (err.code === 11000) {
-        next(new ConflictError('Пользователь уже существует!'));
+        next(new ConflictError(MESSAGE_CONFLICT_ERR));
       } else {
         next(err);
       }
