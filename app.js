@@ -14,17 +14,17 @@ const auth = require('./middlewares/auth');
 
 const app = express();
 
-const { PORT = 4000 } = process.env;
-
-// app.use(cors({
-//   origin: 'https://morello.nomoreparties.sbs',
-//   credentials: true,
-// }));
+const { PORT = 3000 } = process.env;
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://morello.nomoredomains.xyz/',
   credentials: true,
 }));
+
+// app.use(cors({
+//   origin: 'http://localhost:3000',
+//   credentials: true,
+// }));
 
 mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb')
   .then(() => {
