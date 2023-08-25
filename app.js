@@ -15,7 +15,7 @@ const { MESSAGE_CRASH_TEST } = require('./utils/error');
 
 const app = express();
 
-const { PORT = 3000 } = process.env;
+const { PORT = 4000 } = process.env;
 
 app.use(cors({
   origin: 'https://morello.nomoredomains.xyz/',
