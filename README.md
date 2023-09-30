@@ -2,6 +2,6 @@
 
 ## Ссылка на backend
 
-IP-адрес 84.252.136.139
+IP-адрес 130.193.41.198
 
 Backend https://api.morello.nomoredomains.xyz
