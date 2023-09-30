@@ -12,7 +12,7 @@ const {
 
 router.get('/', getMovies);
 
-router.delete('/:filmId', validateDeleteMovie, deleteMovies);
+router.delete('/:movieId', validateDeleteMovie, deleteMovies);
 
 router.post('/', validateCreateMovie, createMovies);
 

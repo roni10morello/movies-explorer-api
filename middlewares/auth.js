@@ -1,11 +1,20 @@
 const jwt = require('jsonwebtoken');
 const UnauthorizedError = require('../errors/unauthorized-error');
-const TOP_SECRET = require('../utils/config');
+const { TOP_SECRET } = require('../utils/config');
 const { MESSAGE_AUTH_ERROR } = require('../utils/error');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const auth = (req, res, next) => {
+  // const { authorization } = req.headers;
+
+  // if (!authorization || !authorization.startsWith('Bearer ')) {
+  //   throw new UnauthorizedError(MESSAGE_AUTH_ERROR);
+  // }
+
+  // const token = authorization.replace('Bearer ', '');
+  // let payload;
+
   const token = req.cookies.jwt;
   let payload;
 

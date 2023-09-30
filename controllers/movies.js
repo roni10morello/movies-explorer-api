@@ -21,14 +21,14 @@ const getMovies = (req, res, next) => {
 };
 
 const deleteMovies = (req, res, next) => {
-  const { filmId } = req.params;
-  return Movie.findById(filmId)
+  const { movieId } = req.params;
+  return Movie.findById(movieId)
     .orFail(() => {
       throw new NotFoundError(MESSAGE_NOT_FOUND);
     })
-    .then((data) => {
-      if (data.owner.toString() === req.user._id) {
-        Movie.findByIdAndRemove(filmId).then(() => res.status(OK).send(data));
+    .then((movie) => {
+      if (movie.owner.toString() === req.user._id) {
+        Movie.findByIdAndRemove(movieId).then(() => res.status(OK).send(movie));
       } else {
         next(new ForbiddenError(MESSAGE_NOT_ACCESS));
       }
@@ -66,8 +66,8 @@ const createMovies = (req, res, next) => {
     movieId,
     owner,
   })
-    .then((data) => {
-      res.status(CREATED).send(data);
+    .then((movie) => {
+      res.status(CREATED).send(movie);
     })
     .catch((err) => {
       if (err.name === 'ValidationError') {

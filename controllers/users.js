@@ -1,6 +1,7 @@
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
+const { TOP_SECRET } = require('../utils/config');
 const BadRequestError = require('../errors/bad-request-error');
 const ConflictError = require('../errors/conflict-error');
 
@@ -19,14 +20,14 @@ const login = (req, res, next) => {
   const { email, password } = req.body;
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'this-is-the-way', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : TOP_SECRET, { expiresIn: '7d' });
       res.cookie('jwt', token, {
         maxAge: 36000000,
         httpOnly: true,
-        sameSite: true,
+        sameSite: 'None',
         secure: true,
       });
-      res.send({ token });
+      res.send({ data: user });
     })
     .catch(next);
 };
@@ -41,7 +42,7 @@ const getUserInfo = (req, res, next) => {
       if (!user) {
         next(new NotFoundError(MESSAGE_NOT_FOUND_USER));
       }
-      res.status(OK).send(user);
+      res.status(OK).send({ data: user });
     })
     .catch(next);
 };
@@ -88,7 +89,7 @@ const updateUserInfo = (req, res, next) => {
   )
     .then((user) => {
       if (user) {
-        res.status(OK).send(user);
+        res.status(OK).send({ data: user });
       } else {
         next(new NotFoundError(MESSAGE_NOT_FOUND_USER));
       }

@@ -25,23 +25,23 @@ const validateChangeUser = celebrate({
 
 const validateDeleteMovie = celebrate({
   params: Joi.object().keys({
-    filmId: Joi.string().length(24).required().hex(),
+    movieId: Joi.string().hex().length(24).required(),
   }),
 });
 
 const validateCreateMovie = celebrate({
   body: Joi.object().keys({
     country: Joi.string().min(2).max(30).required(),
-    director: Joi.string().min(2).max(30).required(),
+    director: Joi.string().required(),
     duration: Joi.number().min(2).max(300).required(),
     year: Joi.string().min(4).max(4).required(),
-    description: Joi.string().min(40).max(800).required(),
+    description: Joi.string().min(40).max(2000).required(),
     image: Joi.string().required().regex(URL_PATTERN),
     trailerLink: Joi.string().required().regex(URL_PATTERN),
     thumbnail: Joi.string().required().regex(URL_PATTERN),
     nameRU: Joi.string().min(1).max(200).required(),
     nameEN: Joi.string().min(1).max(200).required(),
-    movieId: Joi.number().min(2).max(300).required(),
+    movieId: Joi.number().required(),
   }),
 });
 
