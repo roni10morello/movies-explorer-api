@@ -17,14 +17,14 @@ const app = express();
 
 const { PORT = 3000 } = process.env;
 
-// app.use(cors({
-//   origin: 'https://morello.nomoredomains.xyz/',
-//   credentials: true,
-//   // sameSite: 'None',
-//   // secure: true,
-// }));
+app.use(cors({
+  origin: 'https://morello.nomoredomains.xyz/',
+  credentials: true,
+  sameSite: 'None',
+  secure: true,
+}));
 
-app.use(cors());
+// app.use(cors());
 
 // app.use(cors({
 //   origin: 'http://localhost:3000/',
