@@ -25,6 +25,7 @@ const login = (req, res, next) => {
         maxAge: 36000000,
         httpOnly: true,
         sameSite: 'none',
+        secure: true,
       });
       res.send({ data: user });
     })
