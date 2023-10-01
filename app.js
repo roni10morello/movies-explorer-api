@@ -16,7 +16,7 @@ const { MESSAGE_CRASH_TEST } = require('./utils/error');
 const app = express();
 
 const { PORT = 3000 } = process.env;
-
+app.use(cors);
 // app.use(cors({
 //   origin: 'https://morello.nomoredomains.xyz/',
 //   credentials: true,
@@ -42,7 +42,7 @@ mongoose.connect(MONGO_URL)
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors);
+
 app.use(helmet());
 app.use(limiter);
 app.use(cookieParser());
