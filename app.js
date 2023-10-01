@@ -17,7 +17,7 @@ const app = express();
 
 const { PORT = 3000 } = process.env;
 app.use(cors({
-  origin: ['https://morello.nomoredomains.xyz', 'https://api.morello.nomoredomains.xyz'],
+  origin: ['https://morello.nomoredomains.xyz', 'https://api.morello.nomoredomains.xyz', 'http://localhost:3000'],
   credentials: true,
 }));
 
