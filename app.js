@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
-const corsHandler = require('./middlewares/corsHandler');
+const cors = require('cors');
 const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const routes = require('./routes/index');
@@ -16,10 +16,12 @@ const { MESSAGE_CRASH_TEST } = require('./utils/error');
 const app = express();
 
 const { PORT = 3000 } = process.env;
-// app.use(cors({
-//   origin: ['https://morello.nomoredomains.xyz/', 'http://localhost:3000/'],
-//   credentials: true,
-// }));
+app.use(cors({
+  origin: ['https://morello.nomoredomains.xyz/', 'http://localhost:3000/'],
+  credentials: true,
+  sameSite: 'None',
+  secure: true,
+}));
 
 // app.use(cors({
 //   origin: 'http://localhost:3000/',
@@ -41,7 +43,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(helmet());
 app.use(limiter);
-app.use(corsHandler);
 app.use(cookieParser());
 app.use(requestLogger);
 
