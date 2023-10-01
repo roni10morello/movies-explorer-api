@@ -18,8 +18,6 @@ const app = express();
 const { PORT = 3001 } = process.env;
 app.use(cors({
   origin: ['https://morello.nomoredomains.xyz/', 'http://localhost:3001/'],
-  credentials: true,
-  sameSite: true,
 }));
 
 // app.use(cors());
