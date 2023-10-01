@@ -31,7 +31,7 @@ const validateDeleteMovie = celebrate({
 
 const validateCreateMovie = celebrate({
   body: Joi.object().keys({
-    country: Joi.string().min(2).max(30).required(),
+    country: Joi.string().required(),
     director: Joi.string().required(),
     duration: Joi.number().min(2).max(300).required(),
     year: Joi.string().min(4).max(4).required(),
