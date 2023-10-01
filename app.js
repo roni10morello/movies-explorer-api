@@ -4,8 +4,8 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
-const cors = require('cors');
 const helmet = require('helmet');
+const cors = require('./middlewares/cors');
 const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const routes = require('./routes/index');
@@ -17,11 +17,11 @@ const app = express();
 
 const { PORT = 3000 } = process.env;
 
-app.use(cors({
-  origin: 'https://morello.nomoredomains.xyz/',
-  credentials: true,
-  sameSite: true,
-}));
+// app.use(cors({
+//   origin: 'https://morello.nomoredomains.xyz/',
+//   credentials: true,
+//   sameSite: true,
+// }));
 
 // app.use(cors());
 
@@ -42,6 +42,7 @@ mongoose.connect(MONGO_URL)
 
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors);
 app.use(helmet());
 app.use(limiter);
 app.use(cookieParser());
