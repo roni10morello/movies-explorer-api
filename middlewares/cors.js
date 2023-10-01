@@ -1,8 +1,8 @@
 const allowedCors = [
   'https://morello.nomoredomains.xyz/',
   'http://morello.nomoredomains.xyz/',
-  'https://localhost:3000',
-  'http://localhost:3000',
+  'https://localhost:3001',
+  'http://localhost:3001',
 ];
 
 const cors = (req, res, next) => {
